@@ -2,6 +2,9 @@
 
 namespace MOVEit.DTOs
 {
+    /// <summary>
+    /// User Data Transfer Objects
+    /// </summary>
     public class UserDTO
     {
         [JsonPropertyName("grant_type")]

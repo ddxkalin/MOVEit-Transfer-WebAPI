@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace MOVEit.DTOs
 {
+    /// <summary>
+    /// Token Data Transfer Objects
+    /// </summary>
     public class TokenDTO
     {
         [JsonPropertyName("token_type")]

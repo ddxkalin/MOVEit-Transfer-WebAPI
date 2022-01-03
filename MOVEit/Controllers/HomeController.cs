@@ -24,9 +24,7 @@ namespace MOVEit.Controllers
         [Route("token")]
         public async Task<IActionResult> Index([FromQuery] UserDTO userDTO)
         {
-            //var tokenDTO = new TokenDTO();
-
-            using (var client = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
                 HttpContent content = new FormUrlEncodedContent(new[]
                 {
@@ -35,56 +33,21 @@ namespace MOVEit.Controllers
                     new KeyValuePair<string, string>("password", userDTO.Password)
                 });
 
-                client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                httpClient.BaseAddress = new Uri(Baseurl);
+                httpClient.DefaultRequestHeaders.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
-                HttpResponseMessage Response = await client.PostAsync("token", content);
+                HttpResponseMessage Response = await httpClient.PostAsync("token", content);
                 
                 var json = Response.Content.ReadAsStringAsync().Result;
                 TokenDTO tokenDTO = JsonConvert.DeserializeObject<TokenDTO>(json.ToString());
+                var result = json.Split(new string[] { "\\t", "\\n" }, StringSplitOptions.None);        ///Half Helpful..
+
+                httpClient.Dispose();
 
                 return Ok(json);
             }
         }
-
-        ///<summary>
-        /// The upload file method from the MOVEit API. Still Under development because of the /api/v1/token problems with the API.
-        /// </summary>
-        //[HttpPost]
-        //[Route("folders/{FolderID}/files")]
-        //public async Task<ActionResult> UploadFile([FromQuery] FolderItemDTO folderItemDTO, int FolderID)
-        //{
-        //    var tokenDTO = new TokenDTO();
-
-        //    using (var client = new HttpClient())
-        //    {
-        //        HttpContent content = new FormUrlEncodedContent(new[]
-        //        {
-        //            new KeyValuePair<string, string>("ID", folderItemDTO.FolderID),
-        //            new KeyValuePair<string, string>("file ", folderItemDTO.File),
-        //            new KeyValuePair<string, string>("hash", folderItemDTO.Hash),
-        //            new KeyValuePair<string, string>("hashtype", folderItemDTO.Hashtype),
-        //            new KeyValuePair<string, string>("comments", folderItemDTO.Comments)
-        //        });
-
-        //        client.BaseAddress = new Uri(Baseurl);
-        //        client.DefaultRequestHeaders.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-        //        client.DefaultRequestHeaders.Authorization =
-        //            new AuthenticationHeaderValue("Bearer", tokenDTO.AccessToken);
-
-        //        HttpResponseMessage Response = await client.PostAsync("token", content);
-        //        if (Response.IsSuccessStatusCode)
-        //        {
-
-        //        }
-        //        return Ok();
-        //    }
-        //}
-
-
     }
 }

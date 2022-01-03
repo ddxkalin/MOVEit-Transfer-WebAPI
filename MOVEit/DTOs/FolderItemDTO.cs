@@ -2,13 +2,13 @@
 
 namespace MOVEit.DTOs
 {
+    /// <summary>
+    /// Folder Data Transfer Objects
+    /// </summary>
     public class FolderItemDTO
     {
         [JsonPropertyName("FolderId")]
         public string FolderID { get; set; }
-
-        [JsonPropertyName("file")]
-        public string File { get; set; }
 
         [JsonPropertyName("hashtype")]
         public string Hashtype { get; set; }
