@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace MOVEit.DTOs
 {
@@ -14,6 +15,7 @@ namespace MOVEit.DTOs
         public string RefreshToken { get; set; }
 
         [JsonPropertyName("expires_in")]
-        public int ExpiresIn { get; set; }
+        public DateTime ExpiresIn { get; set; }
+
     }
 }

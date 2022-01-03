@@ -5,7 +5,7 @@ namespace MOVEit.DTOs
     public class UserDTO
     {
         [JsonPropertyName("grant_type")]
-        public string Grant_type = "password";
+        public string Grant_type { get; set; }
 
         [JsonPropertyName("username")]
         public string Username { get; set; }
