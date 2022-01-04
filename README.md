@@ -42,3 +42,7 @@ Auth-sample.txt attachment is a PowerShell example that should help you understa
 ## Issues
 - Uploading method is currently is under development!
 
+## TODO:
+- Implement Unit Testing for better perfomance
+- Fix the Uploading method issue
+- Logic, syntax & comments add & fix if necessary
