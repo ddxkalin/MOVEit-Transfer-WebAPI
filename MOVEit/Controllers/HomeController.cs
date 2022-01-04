@@ -13,8 +13,6 @@ namespace MOVEit.Controllers
     [Route("api/v1/")]
     public class HomeController : ControllerBase
     {
-        const string Baseurl = "https://mobile-1.moveitcloud.com/api/v1/";
-
         /// <summary>
         /// Log In with the user credentials to get the AuthToken that we need for uploading a file via the MOVEit API.
         /// </summary>
@@ -25,6 +23,7 @@ namespace MOVEit.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> Index([FromQuery] UserDTO userDTO)
         {
+
             using (var httpClient = new HttpClient())
             {
                 HttpContent content = new FormUrlEncodedContent(new[]
@@ -34,20 +33,20 @@ namespace MOVEit.Controllers
                     new KeyValuePair<string, string>("password", userDTO.Password)
                 });
 
-                httpClient.BaseAddress = new Uri(Baseurl);
+                httpClient.BaseAddress = new Uri(Common.Consts.Baseurl);
                 httpClient.DefaultRequestHeaders.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
                 HttpResponseMessage Response = await httpClient.PostAsync("token", content);
-                
-                var json = Response.Content.ReadAsStringAsync().Result;
-                TokenDTO tokenDTO = JsonConvert.DeserializeObject<TokenDTO>(json.ToString());
-                var result = json.Replace(@"\", "\\n");                                     ///Half Helpful..or not at all
+
+                var resultContent = Response.Content.ReadAsStringAsync().Result;
+                TokenDTO tokenDTO = JsonConvert.DeserializeObject<TokenDTO>(resultContent);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenDTO.access_token);
 
                 httpClient.Dispose();
 
-                return Ok(result);
+                return Ok(tokenDTO);
             }
         }
     }

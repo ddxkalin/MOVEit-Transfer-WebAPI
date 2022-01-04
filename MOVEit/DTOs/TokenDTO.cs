@@ -7,16 +7,16 @@ namespace MOVEit.DTOs
     /// </summary>
     public class TokenDTO
     {
-        [JsonPropertyName("token_type")]
-        public string TokenType { get; set; }
-
         [JsonPropertyName("access_token")]
-        public string AccessToken { get; set; }
+        public string access_token { get; set; }
 
-        [JsonPropertyName("refresh_token")]
-        public string RefreshToken { get; set; }
+        [JsonPropertyName("token_type")]
+        public string token_type { get; set; }
 
         [JsonPropertyName("expires_in")]
-        public int ExpiresIn { get; set; }
+        public int expires_in { get; set; }
+
+        [JsonPropertyName("refresh_token")]
+        public string refresh_token { get; set; }
     }
 }
