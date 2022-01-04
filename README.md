@@ -40,5 +40,9 @@ Auth-sample.txt attachment is a PowerShell example that should help you understa
 
 
 ## Issues
-Currently having issues with the api/v1/token therefore are the issues with the uploading method. Currently is under development, hoping to fix it asap.
+- Uploading method is currently is under development!
 
+## TODO:
+- Implement Unit Testing for better perfomance
+- Fix the Uploading method issue
+- Logic, syntax & comments add & fix if necessary
