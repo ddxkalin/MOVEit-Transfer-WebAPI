@@ -20,7 +20,7 @@ namespace MOVEit.Controllers
         /// <param name="folderItemDTO">Passing the DTOs</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file, [FromQuery] FolderItemDTO folderItemDTO)
+        public async Task<IActionResult> Upload([FromQuery] FolderItemDTO folderItemDTO)
         {
             using (HttpClient httpClient = new HttpClient())
             {

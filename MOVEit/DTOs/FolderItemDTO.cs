@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Http;
+using System.Text.Json.Serialization;
 
 namespace MOVEit.DTOs
 {
@@ -12,6 +13,9 @@ namespace MOVEit.DTOs
 
         [JsonPropertyName("hashtype")]
         public string Hashtype { get; set; }
+
+        [JsonPropertyName("file")]
+        public IFormFile File { get; set; }
 
         [JsonPropertyName("hash")]
         public string Hash { get; set; }
