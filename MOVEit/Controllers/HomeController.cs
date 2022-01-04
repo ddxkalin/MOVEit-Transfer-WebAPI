@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using MOVEit.DTOs;
 using Newtonsoft.Json;
 using System;
@@ -23,7 +25,6 @@ namespace MOVEit.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> Index([FromQuery] UserDTO userDTO)
         {
-
             using (var httpClient = new HttpClient())
             {
                 HttpContent content = new FormUrlEncodedContent(new[]
@@ -49,5 +50,38 @@ namespace MOVEit.Controllers
                 return Ok(tokenDTO);
             }
         }
+
+        [HttpPost]
+        [Route("folders/{id}/files")]
+        public async Task<IActionResult> UploadFile(IFormFile File,
+                                                    [FromQuery] FolderItemDTO folderItemDTO)
+        {
+            TokenDTO tokenDTO = new TokenDTO();
+
+            using(var httpClient = new HttpClient())
+            {
+                HttpContent content = new FormUrlEncodedContent(new[]
+                {
+                    //new KeyValuePair<string, string>("Id", folderItemDTO.Id),
+                    new KeyValuePair<string, string>("hashtype", folderItemDTO.hashtype),
+                    new KeyValuePair<string, string>("hash", folderItemDTO.hash),
+                    new KeyValuePair<string, string>("comments", folderItemDTO.comments)
+                });
+
+                httpClient.BaseAddress = new Uri(Common.Consts.Baseurl);
+                httpClient.DefaultRequestHeaders.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SecuritySchemeType.ApiKey.ToString());
+
+                HttpResponseMessage Response = await httpClient.PostAsync("folders/{id}/files", content);
+                var resultContent = Response.Content.ReadAsStringAsync().Result;
+
+            }
+
+            return Ok("50000");
+        }
+
+
     }
 }
