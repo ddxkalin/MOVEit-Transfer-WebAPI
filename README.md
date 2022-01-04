@@ -38,6 +38,9 @@ Auth-sample.txt attachment is a PowerShell example that should help you understa
          3. 3.Execute the following command: 4.chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
       3. Download the Allow CORS: Access-Control-Allow-Origin extension for the browser and enable it.
 
+## Running the project
+
+- Open Visual Studio. From the top menu bar, select File > Open > Open from Source Control. The Team Explorer - Connect pane opens. In the Local Git Repositories section, select Clone
 
 ## Issues
 - Uploading method is currently under development!
