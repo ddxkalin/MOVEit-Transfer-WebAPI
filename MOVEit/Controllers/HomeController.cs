@@ -18,17 +18,18 @@ namespace MOVEit.Controllers
         /// <summary>
         /// Log In with the user credentials to get the AuthToken that we need for uploading a file via the MOVEit API.
         /// </summary>
-        /// <param name="userDTO">User Data Transfer Object with the grant_type, username and password.</param>
+        /// <param name="userDTO">User Data Transfer Object with the grant_type, username and password.</param>bg
         /// <returns></returns>
         [HttpPost]
         [Route("token")]
+        [Produces("application/json")]
         public async Task<IActionResult> Index([FromQuery] UserDTO userDTO)
         {
             using (var httpClient = new HttpClient())
             {
                 HttpContent content = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("grant_type", userDTO.Grant_type),
+                    new KeyValuePair<string, string>("grant_type", userDTO.Grant_Type.ToString()),
                     new KeyValuePair<string, string>("username", userDTO.Username),
                     new KeyValuePair<string, string>("password", userDTO.Password)
                 });
@@ -42,11 +43,11 @@ namespace MOVEit.Controllers
                 
                 var json = Response.Content.ReadAsStringAsync().Result;
                 TokenDTO tokenDTO = JsonConvert.DeserializeObject<TokenDTO>(json.ToString());
-                var result = json.Split(new string[] { "\\t", "\\n" }, StringSplitOptions.None);        ///Half Helpful..
+                var result = json.Replace(@"\", "\\n");                                     ///Half Helpful..or not at all
 
                 httpClient.Dispose();
 
-                return Ok(json);
+                return Ok(result);
             }
         }
     }
