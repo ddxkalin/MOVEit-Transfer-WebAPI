@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace MOVEit.DTOs
@@ -8,14 +8,12 @@ namespace MOVEit.DTOs
     /// </summary>
     public class FolderItemDTO
     {
+        [Required]
         [JsonPropertyName("FolderId")]
-        public string FolderID { get; set; }
+        public string ID { get; set; }
 
         [JsonPropertyName("hashtype")]
         public string Hashtype { get; set; }
-
-        [JsonPropertyName("file")]
-        public IFormFile File { get; set; }
 
         [JsonPropertyName("hash")]
         public string Hash { get; set; }
