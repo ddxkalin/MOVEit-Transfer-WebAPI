@@ -54,7 +54,6 @@ namespace MOVEit.Controllers
         //        return Json(StatusCodes.Status403Forbidden);
         //    }
 
-        //    //If file not exist and request form tell us that is the first file part
         //    else if (!System.IO.File.Exists(Dest + FileName) && ChunkIndex == 0)
         //    {
         //        using (var ms = new MemoryStream())
@@ -68,7 +67,6 @@ namespace MOVEit.Controllers
         //        }
         //    }
 
-        //    //If file exist and request form tell us that is not the first file part and we should attack this file to the prev uploaded parts
         //    else
         //    {
         //        using (var ms = new MemoryStream())
