@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace MOVEit.DTOs
 {
@@ -8,18 +7,14 @@ namespace MOVEit.DTOs
     /// </summary>
     public class FolderItemDTO
     {
-        [Required]
-        [JsonPropertyName("FolderId")]
-        public string ID { get; set; }
-
         [JsonPropertyName("hashtype")]
-        public string Hashtype { get; set; }
+        public string hashtype { get; set; }
 
         [JsonPropertyName("hash")]
-        public string Hash { get; set; }
+        public string hash { get; set; }
 
         [JsonPropertyName("comments")]
-        public string Comments { get; set; }
+        public string comments { get; set; }
     }
 }
 
