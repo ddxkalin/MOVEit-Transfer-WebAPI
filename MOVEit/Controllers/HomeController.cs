@@ -50,7 +50,7 @@ namespace MOVEit.Controllers
                 AccessToken = tokenDTO.access_token;
                 httpClient.Dispose();
 
-                return Ok(tokenDTO);
+                return Ok(tokenDTO);            ///Remove status code OK alltime..
             }
         }
 
@@ -92,8 +92,9 @@ namespace MOVEit.Controllers
                             HttpResponseMessage response = await httpClient.PostAsync($"folders/{fileItemDTO.folderID}/files", DictionaryItems);
                             var resultContent = response.Content.ReadAsStringAsync().Result;
                             fileItemDTO = JsonConvert.DeserializeObject<FileItemDTO>(resultContent);
+                            httpClient.Dispose();
 
-                            return Ok(fileItemDTO);
+                            return Ok(fileItemDTO);         ///Remove status code OK alltime..
                         }
                     }
                 }
