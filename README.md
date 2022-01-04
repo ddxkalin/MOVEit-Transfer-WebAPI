@@ -40,7 +40,7 @@ Auth-sample.txt attachment is a PowerShell example that should help you understa
 
 ## Running the project
 
-- Open Visual Studio 2017. From the top menu bar, select File > Open > Open from Source Control. The Team Explorer - Connect pane opens. In the Local Git Repositories section, select Clone
+- Open Visual Studio. From the top menu bar, select File > Open > Open from Source Control. The Team Explorer - Connect pane opens. In the Local Git Repositories section, select Clone
 
 ## Issues
 - Uploading method is currently under development!
