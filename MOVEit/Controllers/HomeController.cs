@@ -42,15 +42,24 @@ namespace MOVEit.Controllers
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
-                HttpResponseMessage Response = await httpClient.PostAsync("token", content);
+                HttpResponseMessage response = await httpClient.PostAsync("token", content);
 
-                var resultContent = Response.Content.ReadAsStringAsync().Result;
+                var resultContent = response.Content.ReadAsStringAsync().Result;
                 TokenDTO tokenDTO = JsonConvert.DeserializeObject<TokenDTO>(resultContent);
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenDTO.access_token);
                 AccessToken = tokenDTO.access_token;
                 httpClient.Dispose();
 
-                return Ok(tokenDTO);            ///Remove status code OK alltime..
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                    return Ok(tokenDTO);
+                }
+                catch (HttpRequestException ex)
+                {
+                    ///Error Handle
+                    throw new Exception(ex.Message);
+                }            
             }
         }
 
@@ -94,7 +103,16 @@ namespace MOVEit.Controllers
                             fileItemDTO = JsonConvert.DeserializeObject<FileItemDTO>(resultContent);
                             httpClient.Dispose();
 
-                            return Ok(fileItemDTO);         ///Remove status code OK alltime..
+                            try
+                            {
+                                response.EnsureSuccessStatusCode();
+                                return Ok(fileItemDTO);
+                            }
+                            catch (HttpRequestException ex)
+                            {
+                                ///Error Handle
+                                throw new Exception(ex.Message);
+                            }
                         }
                     }
                 }
